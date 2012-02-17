@@ -1,8 +1,7 @@
-$:.unshift(File.dirname(__FILE__)) unless
-  $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
+class CreditCardValidator < ActiveModel::EachValidator
+  autoload :CreditCard, 'credit_card_validator/credit_card'
 
-require File.join(File.dirname(__FILE__), 'credit_card_validator', 'validator')
-
-module CreditCardValidator
-  VERSION = '1.0.0'
+  def validate_each(record, attribute, value)
+    record.errors.add(attribute, options[:message]) unless CreditCard.new(value, options).valid?
+  end
 end
