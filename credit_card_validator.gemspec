@@ -8,22 +8,23 @@ Gem::Specification.new do |s|
   s.description = %q{A gem that provides credit card validation. It is basically a ruby port of the javascript credit card validator by Thomas Fuchs (madrobby) (http://github.com/madrobby/creditcard_js).}
   s.email = ["tcrawley@gmail.com"]
   s.extra_rdoc_files = ["History.txt", "Manifest.txt", "README.rdoc"]
-  s.files = ["History.txt", "Manifest.txt", "README.rdoc", "Rakefile", "lib/credit_card_validator.rb", "lib/credit_card_validator/validator.rb", "test/test_credit_card_validator.rb", "test/test_helper.rb", "bin/credit_card_validator"]
+  s.files = `git ls-files`.split("\n")
   s.has_rdoc = true
-  s.homepage = %q{http://github.com/tobias/credit_card_validator}
+  s.homepage = %q{http://github.com/rafaelss/credit_card_validator}
   s.rdoc_options = ["--main", "README.rdoc"]
   s.require_paths = ["bin","lib"]
   s.rubyforge_project = %q{credit_card_validator}
   s.rubygems_version = %q{1.3.1}
   s.summary = %q{A gem that provides credit card validation}
-  s.test_files = ["test/test_credit_card_validator.rb", "test/test_helper.rb"]
-  s.executables = %w[credit_card_validator]
+  s.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
+  s.executables = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
 
   deps = [
       [%q<newgem>,   [">= 1.2.3"]],
       [%q<hoe>,      [">= 1.8.0"]],
       [%q<base_app>, [">= 1.0.5"]]
   ]
+
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 2
